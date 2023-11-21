@@ -1,12 +1,25 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import * as MediaLibrary from 'expo-media-library';
+import { useEffect,  useState, useRef } from 'react';
+import ScreenShot from './src/component/ScreenShot';
+
+
 
 export default function App() {
+  const [status, requestPermission] = MediaLibrary.usePermissions();
+ 
+
+  useEffect(()=>{
+    if (status === null) {
+      requestPermission();
+    }
+  },[])
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+      <View style={styles.imageContainer} >
+        <ScreenShot />
+      </View>
+
   );
 }
 
